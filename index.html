@@ -1,12 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Nook Library</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <script src="./scripts/app.js" defer></script>
+    <title>Book Nook Library</title>
+  </head>
+  <body>
+    <main>
+      <h1 class="page-title">The Book Nook</h1>
+      <section id="shelves-container" class="shelves-container">
+        <div class="shelf shelf-0"></div>
+      </section>
+      <section class="controls">
+        <button data-modal="modal-add" class="control-btn add-book">
+          <img
+            src="./assets/icons/add.svg"
+            alt="add a book"
+            class="controls-icon"
+          />
+        </button>
+        <button data-modal="modal-delete" class="control-btn delete-all-books">
+          <img
+            src="./assets/icons/delete.svg"
+            alt="delete all books"
+            class="controls-icon"
+          />
+        </button>
+      </section>
+      <div class="modal modal-add" id="modal-add">
+        <div class="modal-bg modal-exit"></div>
+        <form class="modal-add-form" id="form">
+          <section class="modal-close-container">
+            <svg
+              class="modal-close modal-exit"
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M34.2248 0.801781C33.9792 0.555679 33.6874 0.360431 33.3663 0.227213C33.0451
+                0.0939946 32.7009 0.0254225 32.3532 0.0254225C32.0055 0.0254225 31.6612 0.0939946
+                31.3401 0.227213C31.0189 0.360431 30.7272 0.555679 30.4816 0.801781L17.5 13.7568L4.5184
+                0.775234C4.27262 0.529454 3.98083 0.334491 3.65971 0.201476C3.33858 0.0684612
+                2.9944 2.58971e-09 2.64682 0C2.29923 -2.58971e-09 1.95505 0.0684612 1.63392
+                0.201476C1.3128 0.334491 1.02101 0.529454 0.775234 0.775234C0.529454 1.02101
+                0.334491 1.3128 0.201476 1.63392C0.0684612 1.95505 -2.58971e-09 2.29923 0
+                2.64682C2.58971e-09 2.9944 0.0684612 3.33858 0.201476 3.65971C0.334491
+                3.98083 0.529454 4.27262 0.775234 4.5184L13.7568 17.5L0.775234 30.4816C0.529454
+                30.7274 0.334491 31.0192 0.201476 31.3403C0.0684612 31.6614 0 32.0056 0
+                32.3532C0 32.7008 0.0684612 33.045 0.201476 33.3661C0.334491 33.6872 0.529454
+                33.979 0.775234 34.2248C1.02101 34.4705 1.3128 34.6655 1.63392 34.7985C1.95505
+                34.9315 2.29923 35 2.64682 35C2.9944 35 3.33858 34.9315 3.65971 34.7985C3.98083
+                34.6655 4.27262 34.4705 4.5184 34.2248L17.5 21.2432L30.4816 34.2248C30.7274
+                34.4705 31.0192 34.6655 31.3403 34.7985C31.6614 34.9315 32.0056 35 32.3532
+                35C32.7008 35 33.045 34.9315 33.3661 34.7985C33.6872 34.6655 33.979 34.4705
+                34.2248 34.2248C34.4705 33.979 34.6655 33.6872 34.7985 33.3661C34.9315 33.045
+                35 32.7008 35 32.3532C35 32.0056 34.9315 31.6614 34.7985 31.3403C34.6655
+                31.0192 34.4705 30.7274 34.2248 30.4816L21.2432 17.5L34.2248 4.5184C35.2336
+                3.5096 35.2336 1.81058 34.2248 0.801781Z"
+              />
+            </svg>
+          </section>
+
+          <section class="form-container">
+            <label class="modal-label">Title:</label>
+            <input
+              type="text"
+              class="modal-input"
+              id="book-title"
+              name="Title"
+              placeholder="Book Title"
+              pattern="[A-Za-z]{1,20}"
+              title="Please only enter 20 characters."
+              required
+            />
+
+            <label for="author" class="modal-label">Author:</label>
+            <input
+              type="text"
+              class="modal-input"
+              id="author"
+              name="Author"
+              placeholder="Author Name"
+              pattern="[A-Za-z]{1,20}"
+              title="Please only enter 20 characters."
+              required
+            />
+
+            <label for="pages-count" class="modal-label"
+              >Number of Pages:</label
+            >
+            <input
+              type="number"
+              class="modal-input"
+              id="pages-count"
+              name="Number of Pages"
+              placeholder="Number of Pages"
+              min="1"
+              max="2000"
+              pattern="[0-9]"
+              required
+            />
+
+            <label for="publish-date" class="modal-label">Published:</label>
+            <input
+              type="date"
+              class="modal-input"
+              name="Publish Date"
+              id="publish-date"
+              required
+            />
+
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                class="checkbox"
+                id="read-book"
+                name="Read"
+              />
+              <label for="read-book" class="checkbox-text modal-label">
+                Read this book?
+              </label>
+            </div>
+
+            <div class="modal-controls-container">
+              <button type="submit" id="submit-book" class="modal-controls">
+                Submit
+              </button>
+              <button type="reset" class="modal-controls modal-clear">
+                Clear
+              </button>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <div class="modal modal-delete" id="modal-delete">
+        <div class="modal-bg modal-exit"></div>
+        <form class="modal-delete-form">
+          <section class="modal-close-container">
+            <svg
+              class="modal-close modal-exit"
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M34.2248 0.801781C33.9792 0.555679 33.6874 0.360431 33.3663 0.227213C33.0451
+                0.0939946 32.7009 0.0254225 32.3532 0.0254225C32.0055 0.0254225 31.6612 0.0939946
+                31.3401 0.227213C31.0189 0.360431 30.7272 0.555679 30.4816 0.801781L17.5 13.7568L4.5184
+                0.775234C4.27262 0.529454 3.98083 0.334491 3.65971 0.201476C3.33858 0.0684612
+                2.9944 2.58971e-09 2.64682 0C2.29923 -2.58971e-09 1.95505 0.0684612 1.63392
+                0.201476C1.3128 0.334491 1.02101 0.529454 0.775234 0.775234C0.529454 1.02101
+                0.334491 1.3128 0.201476 1.63392C0.0684612 1.95505 -2.58971e-09 2.29923 0
+                2.64682C2.58971e-09 2.9944 0.0684612 3.33858 0.201476 3.65971C0.334491
+                3.98083 0.529454 4.27262 0.775234 4.5184L13.7568 17.5L0.775234 30.4816C0.529454
+                30.7274 0.334491 31.0192 0.201476 31.3403C0.0684612 31.6614 0 32.0056 0
+                32.3532C0 32.7008 0.0684612 33.045 0.201476 33.3661C0.334491 33.6872 0.529454
+                33.979 0.775234 34.2248C1.02101 34.4705 1.3128 34.6655 1.63392 34.7985C1.95505
+                34.9315 2.29923 35 2.64682 35C2.9944 35 3.33858 34.9315 3.65971 34.7985C3.98083
+                34.6655 4.27262 34.4705 4.5184 34.2248L17.5 21.2432L30.4816 34.2248C30.7274
+                34.4705 31.0192 34.6655 31.3403 34.7985C31.6614 34.9315 32.0056 35 32.3532
+                35C32.7008 35 33.045 34.9315 33.3661 34.7985C33.6872 34.6655 33.979 34.4705
+                34.2248 34.2248C34.4705 33.979 34.6655 33.6872 34.7985 33.3661C34.9315 33.045
+                35 32.7008 35 32.3532C35 32.0056 34.9315 31.6614 34.7985 31.3403C34.6655
+                31.0192 34.4705 30.7274 34.2248 30.4816L21.2432 17.5L34.2248 4.5184C35.2336
+                3.5096 35.2336 1.81058 34.2248 0.801781Z"
+              />
+            </svg>
+          </section>
+
+          <section class="form-container">
+            <p class="delete-confirm">
+              Are you sure you want to delete ALL of the books?
+            </p>
+
+            <div class="modal-controls-container">
+              <button type="submit" id="del-submit" class="modal-controls">
+                Yes!
+              </button>
+              <button class="modal-controls modal-exit">No!</button>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <div class="modal modal-book" id="modal-book">
+        <div class="modal-bg modal-exit"></div>
+        <article class="book-info-container">
+          <section class="modal-close-container">
+            <svg
+              class="book-close modal-exit"
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M34.2248 0.801781C33.9792 0.555679 33.6874 0.360431 33.3663 0.227213C33.0451
+                0.0939946 32.7009 0.0254225 32.3532 0.0254225C32.0055 0.0254225 31.6612 0.0939946
+                31.3401 0.227213C31.0189 0.360431 30.7272 0.555679 30.4816 0.801781L17.5 13.7568L4.5184
+                0.775234C4.27262 0.529454 3.98083 0.334491 3.65971 0.201476C3.33858 0.0684612
+                2.9944 2.58971e-09 2.64682 0C2.29923 -2.58971e-09 1.95505 0.0684612 1.63392
+                0.201476C1.3128 0.334491 1.02101 0.529454 0.775234 0.775234C0.529454 1.02101
+                0.334491 1.3128 0.201476 1.63392C0.0684612 1.95505 -2.58971e-09 2.29923 0
+                2.64682C2.58971e-09 2.9944 0.0684612 3.33858 0.201476 3.65971C0.334491
+                3.98083 0.529454 4.27262 0.775234 4.5184L13.7568 17.5L0.775234 30.4816C0.529454
+                30.7274 0.334491 31.0192 0.201476 31.3403C0.0684612 31.6614 0 32.0056 0
+                32.3532C0 32.7008 0.0684612 33.045 0.201476 33.3661C0.334491 33.6872 0.529454
+                33.979 0.775234 34.2248C1.02101 34.4705 1.3128 34.6655 1.63392 34.7985C1.95505
+                34.9315 2.29923 35 2.64682 35C2.9944 35 3.33858 34.9315 3.65971 34.7985C3.98083
+                34.6655 4.27262 34.4705 4.5184 34.2248L17.5 21.2432L30.4816 34.2248C30.7274
+                34.4705 31.0192 34.6655 31.3403 34.7985C31.6614 34.9315 32.0056 35 32.3532
+                35C32.7008 35 33.045 34.9315 33.3661 34.7985C33.6872 34.6655 33.979 34.4705
+                34.2248 34.2248C34.4705 33.979 34.6655 33.6872 34.7985 33.3661C34.9315 33.045
+                35 32.7008 35 32.3532C35 32.0056 34.9315 31.6614 34.7985 31.3403C34.6655
+                31.0192 34.4705 30.7274 34.2248 30.4816L21.2432 17.5L34.2248 4.5184C35.2336
+                3.5096 35.2336 1.81058 34.2248 0.801781Z"
+              />
+            </svg>
+          </section>
+
+          <section class="book-info">
+            <h1 type="text" id="output-title"></h1>
+
+            <div class="author-info">
+              <h2 class="book-label">Author:</h2>
+              <p type="text" id="output-author" class="book-content"></p>
+            </div>
+
+            <div class="output-info pages-info">
+              <h2 class="book-label">Number of Pages:</h2>
+              <p type="text" id="output-pages" class="book-content"></p>
+            </div>
+
+            <div class="output-info published-info">
+              <h2 class="book-label">Published:</h2>
+              <p type="text" id="output-published" class="book-content"></p>
+            </div>
+            <div id="output-read" class="star-icons">
+              <button onclick="toggleStar()" id="star-button">
+                <img src="./assets/icons/star_filled.svg" alt="" id="star-1" />
+                <img src="./assets/icons/star_outline.svg" alt="" id="star-2" />
+              </button>
+            </div>
+          </section>
+
+          <button class="book-controls">
+            <svg
+              id="delete-book"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M7.69231 8.70833H5V8.16667H9.84615M7.69231 8.70833V19H16.3077V8.70833M7.69231 8.70833H16.3077M16.3077 8.70833H19V8.16667H14.1538M9.84615 
+            8.16667V6H14.1538V8.16667M9.84615 8.16667H14.1538"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M10 11V17"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M12 11V17"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M14 11V17"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </svg>
+          </button>
+        </article>
+      </div>
+    </main>
+  </body>
 </html>

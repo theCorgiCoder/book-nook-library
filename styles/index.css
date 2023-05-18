@@ -1,0 +1,462 @@
+/* ------- fonts and global stuff ------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Open+Sans&display=swap");
+
+:root {
+  --pale-turquoise: #8bf0ff;
+  --light-blue: #e6f8fa;
+  --turquoise: #34c4d9;
+  --dark-turquoise: #184966;
+  --light-brown: #bb9981;
+  --dark-brown: #534340;
+  --red: #aa3838;
+  --gray-blue: #b8bfd9;
+  --black: #000000;
+  --white: #ffffff;
+  --gray: #808080;
+  --light-gray: #adadad;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Caveat", sans-serif;
+}
+
+/* ------- fonts and global stuff ------- */
+
+/* ------- Page Layout Start ------- */
+
+body {
+  background: rgb(70, 211, 252);
+  background: linear-gradient(
+    180deg,
+    rgba(70, 211, 252, 1) 31%,
+    rgba(19, 107, 194, 1) 100%
+  );
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
+
+/* ------- Page Layout End ------- */
+
+/* ------- Book shelf Section Start ------- */
+
+.page-title {
+  color: var(--white);
+  font-size: calc(2rem + 2vh);
+  padding: 1em;
+}
+
+.shelves-container {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(30vw, 50vw));
+  grid-template-rows: auto;
+  background-color: var(--light-brown);
+  padding: 10px;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: minmax(100px, max-content);
+  gap: 20px;
+  background-color: var(--dark-brown);
+  padding: 10px 10px 0 10px;
+  align-items: end;
+}
+
+.shelf:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.shelf:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 100%;
+  border: none;
+}
+
+.book:hover {
+  outline: 2px solid var(--white);
+  transition: 0.2s ease-out;
+  transform: scale(1.08);
+}
+
+.book-title {
+  font-size: clamp(16px, 1.2rem, 1.5rem);
+  font-weight: bold;
+  writing-mode: vertical-rl;
+  color: var(--white);
+  rotate: 180deg;
+}
+
+/* ------- Book shelf Section End ------- */
+
+/* ------- Book shelf Control Section Start ------- */
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.control-btn {
+  border-radius: 50%;
+  border: none;
+  background-color: var(--light-blue);
+  cursor: pointer;
+  display: flex;
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.control-btn:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.controls-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* ------- Book shelf Control Section End ------- */
+
+/* ------- Shared Modal Styles Start ------- */
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-bg {
+  position: absolute;
+  background: var(--gray);
+  opacity: 0.6;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-controls-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-controls {
+  background-color: var(--pale-turquoise);
+  color: var(--dark-turquoise);
+  border: 3px dotted var(--dark-turquoise);
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-controls:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 2rem 2rem 2rem;
+}
+
+.modal-close-container {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  padding: 10px 10px 0 0;
+}
+
+.modal-close {
+  fill: var(--dark-turquoise);
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+}
+
+.modal-close:hover,
+.book-close:hover {
+  transform: scale(1.3);
+  transition: 0.3s ease-in-out;
+}
+
+/* ------- Shared Modal Styles End ------- */
+
+/* ------- Add New Book Modal Start ------- */
+
+.modal-add-form {
+  border-radius: 5px;
+  width: calc(150px + 10vw);
+  background-color: var(--light-blue);
+  position: relative; /* also works with z-index to push it on top of the background click event */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0px 0px 0px 12px var(--dark-turquoise);
+}
+
+.modal-label {
+  color: var(--dark-turquoise);
+  font-size: 1.3rem;
+}
+
+.modal-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px dotted var(--dark-turquoise);
+  font-size: 1rem;
+}
+
+.modal-input:focus {
+  outline: none;
+}
+
+.modal-input::placeholder {
+  color: var(--light-gray);
+}
+
+.modal-input:focus::placeholder {
+  color: transparent;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox {
+  width: 22px;
+}
+
+.checkbox-text {
+  font-size: 1rem;
+}
+
+.checkbox:hover,
+.checkbox-text:hover {
+  cursor: pointer;
+}
+
+#read-book {
+  accent-color: var(--dark-turquoise);
+}
+
+::-webkit-datetime-edit-text {
+  color: var(--light-gray);
+  padding: 0 0.3em;
+}
+
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-year-field {
+  color: var(--light-gray);
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: contrast(40%);
+  cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator:hover {
+  transform: scale(1.1);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ------- Add New Book Modal End ------- */
+
+/* ------- Delete Book Modal Start ------- */
+
+.modal-delete-form {
+  border-radius: 10px;
+  background-color: var(--light-blue);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  box-shadow: 0px 0px 0px 12px var(--dark-turquoise);
+}
+
+.delete-confirm {
+  color: var(--dark-turquoise);
+  font-size: 36px;
+  padding: 20px;
+}
+
+/* ------- Delete Book Modal End ------- */
+
+/* ------- Book Info Modal Start ------- */
+
+.book-info-container {
+  border-radius: 10px;
+  background-color: var(--white);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  box-shadow: 0px 0px 0px 12px var(--red);
+}
+
+.book-close {
+  color: var(--black);
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+}
+
+.book-info {
+  padding: 0 30px 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(150px + 15vw);
+  height: 200px;
+  gap: 15px;
+}
+
+.book-content {
+  color: black;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  width: max-content;
+}
+
+.book-label,
+.book-content {
+  font-size: 1.7rem;
+}
+
+#output-title {
+  font-size: 2.5rem;
+  word-wrap: break-word;
+  text-transform: uppercase;
+}
+
+.book-label {
+  color: var(--black);
+}
+
+.book-info div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.book-info div h2 {
+  font-weight: bold;
+}
+
+.book-controls {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+#star-button {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#star-button:active {
+  outline: none;
+}
+
+#delete-book {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  stroke: var(--black);
+}
+
+#delete-book:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+/* ------- Book Info Modal End ------- */
+
+/*---------TABLET MEDIA QUERIES START---------*/
+@media only screen and (max-width: 1000px) {
+  .shelves-container {
+    grid-template-columns: repeat(1, minmax(40vw, 60vw));
+  }
+
+  .shelf {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/*---------TABLET MEDIA QUERIES END---------*/
+
+/*---------MOBILE MEDIA QUERIES START---------*/
+@media only screen and (max-width: 600px) {
+  .shelf {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/*---------MOBILE MEDIA QUERIES END---------*/
